@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EF.Hospital.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class _01 : Migration
+    public partial class _02 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,74 +15,71 @@ namespace EF.Hospital.DAL.Migrations
                 name: "Medicaments",
                 columns: table => new
                 {
-                    MedicamentID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MedicamentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Medicaments", x => x.MedicamentID);
+                    table.PrimaryKey("PK_Medicaments", x => x.MedicamentId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Patients",
                 columns: table => new
                 {
-                    PatientID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Address = table.Column<string>(type: "varchar(80)", unicode: false, maxLength: 80, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    HasInsurance = table.Column<bool>(type: "bit", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Email = table.Column<string>(type: "varchar(80)", unicode: false, maxLength: 80, nullable: true),
+                    HasInsurance = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Patients", x => x.PatientID);
+                    table.PrimaryKey("PK_Patients", x => x.PatientId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Diagnose",
                 columns: table => new
                 {
-                    DiagnoseID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DiagnoseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Comments = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
-                    PatientId = table.Column<int>(type: "int", nullable: false)
+                    PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Diagnose", x => x.DiagnoseID);
+                    table.PrimaryKey("PK_Diagnose", x => x.DiagnoseId);
                     table.ForeignKey(
                         name: "FK_Diagnose_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
-                        principalColumn: "PatientID",
+                        principalColumn: "PatientId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PatientMedicaments",
+                name: "PatientMedicament",
                 columns: table => new
                 {
-                    MedicamentId = table.Column<int>(type: "int", nullable: false),
-                    PatientId = table.Column<int>(type: "int", nullable: false)
+                    PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MedicamentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PatientMedicaments", x => x.MedicamentId);
+                    table.PrimaryKey("PK_PatientMedicament", x => new { x.MedicamentId, x.PatientId });
                     table.ForeignKey(
-                        name: "FK_PatientMedicaments_Medicaments_MedicamentId",
+                        name: "FK_PatientMedicament_Medicaments_MedicamentId",
                         column: x => x.MedicamentId,
                         principalTable: "Medicaments",
-                        principalColumn: "MedicamentID",
+                        principalColumn: "MedicamentId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PatientMedicaments_Patients_PatientId",
+                        name: "FK_PatientMedicament_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
-                        principalColumn: "PatientID",
+                        principalColumn: "PatientId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -90,20 +87,19 @@ namespace EF.Hospital.DAL.Migrations
                 name: "Visitations",
                 columns: table => new
                 {
-                    VisitationID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VisitationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Comments = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    PatientId = table.Column<int>(type: "int", nullable: false)
+                    PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Visitations", x => x.VisitationID);
+                    table.PrimaryKey("PK_Visitations", x => x.VisitationId);
                     table.ForeignKey(
                         name: "FK_Visitations_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
-                        principalColumn: "PatientID",
+                        principalColumn: "PatientId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -113,8 +109,8 @@ namespace EF.Hospital.DAL.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PatientMedicaments_PatientId",
-                table: "PatientMedicaments",
+                name: "IX_PatientMedicament_PatientId",
+                table: "PatientMedicament",
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
@@ -130,7 +126,7 @@ namespace EF.Hospital.DAL.Migrations
                 name: "Diagnose");
 
             migrationBuilder.DropTable(
-                name: "PatientMedicaments");
+                name: "PatientMedicament");
 
             migrationBuilder.DropTable(
                 name: "Visitations");

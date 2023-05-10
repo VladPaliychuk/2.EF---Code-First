@@ -8,7 +8,7 @@ namespace EF.Hospital.DAL.Configuration
     {
         public void Configure(EntityTypeBuilder<PatientMedicament> builder)
         {
-            builder.HasKey(pm => new { pm.PatientId, pm.MedicamentId });
+            builder.HasKey(pm => new { pm.MedicamentId, pm.PatientId});
 
             builder.HasOne(pm => pm.Patient)
                 .WithMany(p => p.Prescriptions)
@@ -18,7 +18,7 @@ namespace EF.Hospital.DAL.Configuration
                 .WithMany(m => m.Prescriptions)
                 .HasForeignKey(pm => pm.MedicamentId);
 
-            builder.ToTable("PatientMedicament");
+            //builder.ToTable("PatientMedicaments");
         }
     }
 }

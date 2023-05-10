@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EF.Hospital.DAL.Migrations
 {
     [DbContext(typeof(HospitalContext))]
-    [Migration("20230509143958_01")]
-    partial class _01
+    [Migration("20230510181302_02")]
+    partial class _02
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,9 @@ namespace EF.Hospital.DAL.Migrations
 
             modelBuilder.Entity("EF.Hospital.DAL.Enteties.Diagnose", b =>
                 {
-                    b.Property<int>("DiagnoseID")
+                    b.Property<Guid>("DiagnoseId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiagnoseID"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Comments")
                         .HasMaxLength(250)
@@ -43,10 +41,10 @@ namespace EF.Hospital.DAL.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("DiagnoseID");
+                    b.HasKey("DiagnoseId");
 
                     b.HasIndex("PatientId");
 
@@ -55,37 +53,35 @@ namespace EF.Hospital.DAL.Migrations
 
             modelBuilder.Entity("EF.Hospital.DAL.Enteties.Medicament", b =>
                 {
-                    b.Property<int>("MedicamentID")
+                    b.Property<Guid>("MedicamentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedicamentID"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("MedicamentID");
+                    b.HasKey("MedicamentId");
 
                     b.ToTable("Medicaments");
                 });
 
             modelBuilder.Entity("EF.Hospital.DAL.Enteties.Patient", b =>
                 {
-                    b.Property<int>("PatientID")
+                    b.Property<Guid>("PatientId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PatientID"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
+                        .HasMaxLength(250)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Email")
                         .HasMaxLength(80)
                         .IsUnicode(false)
                         .HasColumnType("varchar(80)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(50)
@@ -100,46 +96,44 @@ namespace EF.Hospital.DAL.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("PatientID");
+                    b.HasKey("PatientId");
 
                     b.ToTable("Patients");
                 });
 
             modelBuilder.Entity("EF.Hospital.DAL.Enteties.PatientMedicament", b =>
                 {
-                    b.Property<int>("MedicamentId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("MedicamentId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("MedicamentId");
+                    b.HasKey("MedicamentId", "PatientId");
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("PatientMedicaments");
+                    b.ToTable("PatientMedicament", (string)null);
                 });
 
             modelBuilder.Entity("EF.Hospital.DAL.Enteties.Visitation", b =>
                 {
-                    b.Property<int>("VisitationID")
+                    b.Property<Guid>("VisitationId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VisitationID"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Comments")
                         .HasMaxLength(250)
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("VisitationID");
+                    b.HasKey("VisitationId");
 
                     b.HasIndex("PatientId");
 
@@ -148,13 +142,13 @@ namespace EF.Hospital.DAL.Migrations
 
             modelBuilder.Entity("EF.Hospital.DAL.Enteties.Diagnose", b =>
                 {
-                    b.HasOne("EF.Hospital.DAL.Enteties.Patient", "Patients")
+                    b.HasOne("EF.Hospital.DAL.Enteties.Patient", "Patient")
                         .WithMany("Diagnoses")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Patients");
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("EF.Hospital.DAL.Enteties.PatientMedicament", b =>
@@ -178,13 +172,13 @@ namespace EF.Hospital.DAL.Migrations
 
             modelBuilder.Entity("EF.Hospital.DAL.Enteties.Visitation", b =>
                 {
-                    b.HasOne("EF.Hospital.DAL.Enteties.Patient", "Patients")
+                    b.HasOne("EF.Hospital.DAL.Enteties.Patient", "Patient")
                         .WithMany("Visitations")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Patients");
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("EF.Hospital.DAL.Enteties.Medicament", b =>

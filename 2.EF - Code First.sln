@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Hospital.DAL", "Hospital\EF.Hospital.DAL.csproj", "{BEC84D87-E491-47B3-8DEF-4B193A43BE3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Hospital.DAL", "Hospital\EF.Hospital.DAL.csproj", "{BEC84D87-E491-47B3-8DEF-4B193A43BE3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Hospital.API", "EF.Hospital.API\EF.Hospital.API.csproj", "{49A6C212-222E-49EE-82F4-B7F5E2506667}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Hospital.API", "EF.Hospital.API\EF.Hospital.API.csproj", "{49A6C212-222E-49EE-82F4-B7F5E2506667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesDAL", "SalesDAL\SalesDAL.csproj", "{01253268-152D-4B62-BF98-5AF597EED29A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesAPI", "SalesAPI\SalesAPI.csproj", "{8979E5DE-2FF3-4BBB-BD97-E0F2804EA5E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{49A6C212-222E-49EE-82F4-B7F5E2506667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49A6C212-222E-49EE-82F4-B7F5E2506667}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49A6C212-222E-49EE-82F4-B7F5E2506667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01253268-152D-4B62-BF98-5AF597EED29A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01253268-152D-4B62-BF98-5AF597EED29A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01253268-152D-4B62-BF98-5AF597EED29A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01253268-152D-4B62-BF98-5AF597EED29A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8979E5DE-2FF3-4BBB-BD97-E0F2804EA5E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8979E5DE-2FF3-4BBB-BD97-E0F2804EA5E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8979E5DE-2FF3-4BBB-BD97-E0F2804EA5E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8979E5DE-2FF3-4BBB-BD97-E0F2804EA5E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
