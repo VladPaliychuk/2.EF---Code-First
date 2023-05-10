@@ -8,7 +8,7 @@ namespace EF.Hospital.DAL.Enteties
 {
     public class Medicament
     {
-        public int MedicamentID { get; set; }
+        public Guid MedicamentId { get; set; }
         public string? Name { get; set; }
         public ICollection<PatientMedicament>? Prescriptions { get; set; }
     }

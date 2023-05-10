@@ -13,7 +13,7 @@ namespace EF.Hospital.DAL.Configuration
     {
         public void Configure(EntityTypeBuilder<Visitation> builder)
         {
-            builder.HasKey(visitations => visitations.VisitationID);
+            builder.HasKey(visitations => visitations.VisitationId);
 
             builder.Property(visitations => visitations.Date);
 
@@ -21,7 +21,7 @@ namespace EF.Hospital.DAL.Configuration
                 .HasMaxLength(250)
                 .IsUnicode(true);
 
-            builder.HasOne(visitations => visitations.Patients)
+            builder.HasOne(visitations => visitations.Patient)
                 .WithMany(patients => patients.Visitations)
                 .HasForeignKey(visitations => visitations.PatientId);
 

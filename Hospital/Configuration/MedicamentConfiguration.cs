@@ -13,9 +13,9 @@ namespace EF.Hospital.DAL.Configuration
     {
         public void Configure(EntityTypeBuilder<Medicament> builder)
         {
-            builder.HasKey(m => m.MedicamentID);
+            builder.HasKey(medicament => medicament.MedicamentId);
 
-            builder.Property(m => m.Name)
+            builder.Property(medicament => medicament.Name)
                 .HasMaxLength(50)
                 .IsUnicode(true);
         }

@@ -4,10 +4,10 @@ namespace EF.Hospital.DAL.Enteties
 {
     public class Visitation
     {
-        public int VisitationID { get; set; }
+        public Guid VisitationId { get; set; }
+        public DateTime Date { get; set; }
         public string? Comments { get; set; }
-        public DateTime? Date { get; set; }
-        public int PatientId { get; set; }
-        public Patient? Patients { get; set; }
+        public Guid PatientId { get; set; }
+        public Patient? Patient { get; set; }
     }
 }

@@ -8,17 +8,17 @@ namespace EF.Hospital.DAL.Configuration
     {
         public void Configure(EntityTypeBuilder<PatientMedicament> builder)
         {
-            builder.HasKey(pm => pm.PatientID);
+            builder.HasKey(pm => new { pm.PatientId, pm.MedicamentId });
 
             builder.HasOne(pm => pm.Patient)
                 .WithMany(p => p.Prescriptions)
-                .HasForeignKey(pm => pm.PatientID);
-
-            builder.HasKey(pm => pm.MedicamentID);
+                .HasForeignKey(pm => pm.PatientId);
 
             builder.HasOne(pm => pm.Medicament)
                 .WithMany(m => m.Prescriptions)
-                .HasForeignKey(pm => pm.MedicamentID);
+                .HasForeignKey(pm => pm.MedicamentId);
+
+            builder.ToTable("PatientMedicament");
         }
     }
 }

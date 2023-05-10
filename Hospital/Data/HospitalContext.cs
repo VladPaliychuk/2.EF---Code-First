@@ -11,7 +11,7 @@ namespace EF.Hospital.DAL.Data
         public DbSet<Visitation> Visitations => Set<Visitation>();
         public DbSet<Diagnose> Diagnose => Set<Diagnose>();
         public DbSet<Medicament> Medicaments => Set<Medicament>();
-        public DbSet<PatientMedicament> PatientMedicaments => Set<PatientMedicament>();
+        public DbSet<PatientMedicament> Prescriptions => Set<PatientMedicament>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

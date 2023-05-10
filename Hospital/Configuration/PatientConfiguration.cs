@@ -13,7 +13,7 @@ namespace EF.Hospital.DAL.Configuration
     {
         public void Configure(EntityTypeBuilder<Patient> builder)
         {
-            builder.HasKey(p => p.PatientID);
+            builder.HasKey(p => p.PatientId);
 
             builder.Property(p => p.FirstName)
                 .HasMaxLength(50)
@@ -27,11 +27,12 @@ namespace EF.Hospital.DAL.Configuration
                 .HasMaxLength(250)
                 .IsUnicode(true);
 
-            builder.Property(p => p.Address)
+            builder.Property(p => p.Email)
                 .HasMaxLength(80)
                 .IsUnicode(false);
 
-            builder.Property(p => p.HasInsurance);
+            builder.Property(p => p.HasInsurance)
+                 .IsRequired(true);
         }
     }
 }

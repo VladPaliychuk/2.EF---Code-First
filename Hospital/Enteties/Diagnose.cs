@@ -8,10 +8,10 @@ namespace EF.Hospital.DAL.Enteties
 {
     public class Diagnose
     {
-        public int DiagnoseID { get; set; }
+        public Guid DiagnoseId { get; set; }
         public string? Name { get; set; }
         public string? Comments { get; set; }
-        public int PatientId { get; set; }
-        public Patient? Patients { get; set; }
+        public Guid PatientId { get; set; }
+        public Patient? Patient { get; set; }
     }
 }
